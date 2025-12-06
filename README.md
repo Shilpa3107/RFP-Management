@@ -1,171 +1,5 @@
 # AI-Powered RFP Management System
 
-A single-user web application that automates the entire Request for Proposal (RFP) workflow using AI.
-
-## Features
-
-- **Natural Language to RFP** – Convert plain English requirements into structured RFP documents.
-- **Vendor Management** – Maintain and manage a list of vendors.
-- **Email Integration** – Send RFPs to vendors and ingest responses (demo uses simulated emails).
-- **AI Parsing** – Automatically extract pricing, timelines, and terms from vendor replies.
-- **AI Comparison** – Compare proposals side-by-side with AI-generated recommendations.
-
-## Tech Stack
-
-- **Frontend:** React (Vite), Tailwind CSS, Lucide Icons  
-- **Backend:** Node.js, Express, Sequelize (PostgreSQL)  
-- **AI:** Gemini API (Mock mode supported)  
-- **Email:** Nodemailer (Ethereal/Mock accounts)
-
----
-
-## Setup Instructions
-
-### Prerequisites
-
-- Node.js v18 or higher  
-- PostgreSQL database instance
-
----
-
-## Backend Setup
-
-1. Navigate to the backend directory:
-
-   ```bash
-   cd backend
-Install dependencies:
-
-bash
-Copy code
-npm install
-Configure environment variables:
-
-Copy .env.example → .env
-
-Update DATABASE_URL with your PostgreSQL connection string
-
-Add GEMINI_API_KEY (optional — mock mode activates if missing)
-
-Start the backend server:
-
-bash
-Copy code
-npm start
-Backend runs at http://localhost:3000 and auto-syncs the database schema.
-
-Frontend Setup
-Navigate to the frontend directory:
-
-bash
-Copy code
-cd frontend
-Install dependencies:
-
-bash
-Copy code
-npm install
-Start the development server:
-
-bash
-Copy code
-npm run dev
-App will be available at http://localhost:5173.
-
-Demo Walkthrough
-Create RFP:
-Go to New RFP, type something like:
-“I need 10 laptops for the engineering team.”
-Click Generate → Save the structured RFP.
-
-Add Vendors:
-Open the Vendors section and create a few sample vendor entries.
-
-Send RFP:
-From the RFP detail page → select vendors → click Send RFP via Email.
-
-Receive Proposal (Simulated):
-Go to Proposals → open Simulate Incoming Email → select RFP & vendor → click Receive & Parse.
-
-Compare:
-Return to the RFP detail page → click Compare Proposals to see AI-generated comparison and recommendations.
-
-API Documentation
-RFP Endpoints
-POST /api/rfp/generate – Generate structured RFP from prompt
-
-POST /api/rfp – Create new RFP
-
-GET /api/rfp/:id – Get RFP details
-
-POST /api/rfp/:id/send – Send RFP to selected vendors
-
-GET /api/rfp/:id/compare – AI-driven proposal comparison
-
-Vendor Endpoints
-GET /api/vendors – Fetch all vendors
-
-POST /api/vendors – Create vendor record
-
-Proposal Endpoints
-POST /api/proposals/ingest – Parse and store incoming email text
-
-GET /api/proposals – List all vendor proposals
-
-Data Models
-RFP: Title, prompt, structured JSON, status
-
-Vendor: Name, email, contact details
-
-Proposal: Linked to RFP + Vendor, raw email text, parsed JSON, AI analysis
-
-AI Integration
-Model Provider: OpenAI (GPT-3.5-Turbo)
-
-Three AI Workflows:
-
-Generation: Converts user prompt into structured RFP JSON
-
-Parsing: Extracts pricing, lead times, and terms from email text
-
-Comparison: Ranks proposals using AI logic
-
-Mock Mode:
-When no API key is set, predefined mock responses are used for demos.
-
-Known Limitations & Future Enhancements
-Single-user mode — no authentication system
-
-Email reception is simulated — real IMAP integration planned
-
-No file attachment parsing — PDF/doc parsing planned for future
-
-less
-Copy code
-
-If you want, I can also generate:
-
-✅ A README-ready version  
-✅ A GitHub-styled version  
-✅ A shorter or more formal documentation version  
-Just tell me!
-
-
-
-
-
-
-You said:
- A README-ready version  
-
-
-ChatGPT said:
-Here’s a clean, polished, README-ready version — well-structured, easy to read, and suitable for GitHub:
-
-markdown
-Copy code
-# AI-Powered RFP Management System
-
 An AI-driven web application that automates the complete Request for Proposal (RFP) workflow — from generating RFPs to parsing vendor responses and comparing proposals.
 
 ---
@@ -203,7 +37,7 @@ An AI-driven web application that automates the complete Request for Proposal (R
 ### 1. Prerequisites
 
 - Node.js **v18+**  
-- PostgreSQL database instance
+- MySQL database instance
 
 ---
 
@@ -213,129 +47,113 @@ An AI-driven web application that automates the complete Request for Proposal (R
 
    ```bash
    cd backend
-Install dependencies:
+   ```
 
-bash
-Copy code
+2. Install dependencies:
+
+```bash
 npm install
-Configure environment variables:
+```
 
-Copy .env.example → .env
+3. Configure environment variables:
+   - Copy .env.example → .env
+   - Set your DATABASE_URL
+   - Add GEMINI_API_KEY (optional — mock mode enabled if missing)
 
-Set your DATABASE_URL
-
-Add GEMINI_API_KEY (optional — mock mode enabled if missing)
-
-Start the server:
-
-bash
-Copy code
+4. Start the server:
+```bash
 npm start
-Backend runs at http://localhost:3000 and auto-syncs the database.
+```
 
-🎨 Frontend Setup
-Navigate to the frontend:
+5. Backend runs at http://localhost:3000 and auto-syncs the database.
 
-bash
-Copy code
+## 🎨 Frontend Setup
+1. Navigate to the frontend:
+
+```bash
 cd frontend
-Install dependencies:
+```
+2. Install dependencies:
 
-bash
-Copy code
+```bash
 npm install
-Run the dev server:
+```
 
-bash
-Copy code
+3.Run the dev server:
+
+```bash
 npm run dev
-Access the UI at http://localhost:5173.
+```
+4. Access the UI at http://localhost:5173.
 
-🧪 Demo Walkthrough
-Create RFP
+### 🧪 Demo Walkthrough
+1. Create RFP
 Go to New RFP, enter a requirement (e.g., “10 laptops for engineering team”), click Generate, then save.
 
-Add Vendors
+2. Add Vendors
 Open Vendors and add sample vendor entries.
 
-Send RFP
+3. Send RFP
 From the RFP details page → choose vendors → Send RFP via Email.
 
-Simulate Proposal
+4. Simulate Proposal
 Go to Proposals → Simulate Incoming Email → select RFP + Vendor → Receive & Parse.
 
-Compare Proposals
+5. Compare Proposals
 Return to the RFP details → click Compare Proposals to view the AI comparison.
 
-📘 API Documentation
-RFP
-POST /api/rfp/generate – Generate structured RFP from text prompt
+### 📘 API Documentation
 
-POST /api/rfp – Create new RFP
+#### RFP
+ - POST /api/rfp/generate – Generate structured RFP from text prompt
+ - POST /api/rfp – Create new RFP
+ - GET /api/rfp/:id – Fetch RFP details
+ - POST /api/rfp/:id/send – Send RFP to selected vendors
+ - GET /api/rfp/:id/compare – AI-based proposal comparison
 
-GET /api/rfp/:id – Fetch RFP details
+#### Vendors
+- GET /api/vendors – List vendors
+- POST /api/vendors – Create vendor
 
-POST /api/rfp/:id/send – Send RFP to selected vendors
+#### Proposals
+- POST /api/proposals/ingest – Parse incoming email
+- GET /api/proposals – List all proposals
 
-GET /api/rfp/:id/compare – AI-based proposal comparison
+#### 🗂 Data Models
+- RFP
+- Title
+- Original prompt
+- Structured JSON
+- Status
 
-Vendors
-GET /api/vendors – List vendors
+#### Vendor
+- Name
+- Email
+- Contact
+- Metadata
 
-POST /api/vendors – Create vendor
+#### Proposal
+ - Linked RFP ID
+ - Linked Vendor ID
+ - Raw email text
+ - Parsed JSON
+ - AI comparison analysis
 
-Proposals
-POST /api/proposals/ingest – Parse incoming email
+### 🤖 AI Integration
 
-GET /api/proposals – List all proposals
+- Model: Gemini API
+- Workflows:
+   - Generate structured RFP JSON
+   - Parse email text for pricing, timelines, terms
+   - Compare proposals and provide recommendations
+- Mock Mode:
+   - Auto-enabled when API key is not provided.
 
-🗂 Data Models
-RFP
-Title
+### ⚠️ Known Limitations / Future Enhancements
 
-Original prompt
-
-Structured JSON
-
-Status
-
-Vendor
-Name
-
-Email
-
-Contact
-
-Metadata
-
-Proposal
-Linked RFP ID
-
-Linked Vendor ID
-
-Raw email text
-
-Parsed JSON
-
-AI comparison analysis
-
-🤖 AI Integration
-Model: Gemini API
-
-Workflows:
-
-Generate structured RFP JSON
-
-Parse email text for pricing, timelines, terms
-
-Compare proposals and provide recommendations
-
-Mock Mode:
-Auto-enabled when API key is not provided.
-
-⚠️ Known Limitations / Future Enhancements
 No authentication (single-user mode)
 
 Email reception is simulated — full IMAP support planned
 
 No attachment parsing — PDF/doc parsing will be added later
+
